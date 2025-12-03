@@ -1,0 +1,4 @@
+black
+pyyaml
+pytest
+pytest-cov
