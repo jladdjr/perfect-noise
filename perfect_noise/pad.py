@@ -4,9 +4,9 @@ from math import ceil
 from pathlib import Path
 from secrets import choice
 
-from perfect-noise.exceptions import EmptyOneTimePadException
-from perfect-noise.hazmat.hazmat import get_random_bytes
-from perfect-noise.settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
+from perfect_noise.exceptions import EmptyOneTimePadException
+from perfect_noise.hazmat.hazmat import get_random_bytes
+from perfect_noise.settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
 
 
 @staticmethod

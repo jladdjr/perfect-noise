@@ -4,12 +4,12 @@ from subprocess import CalledProcessError
 
 import pytest
 
-from perfect-noise.archive import Archiver
-from perfect-noise.exceptions import MissingDependency
+from perfect_noise.archive import Archiver
+from perfect_noise.exceptions import MissingDependency
 
 
 class TestArchive:
-    @mock.patch("perfect-noise.archive.run")
+    @mock.patch("perfect_noise.archive.run")
     def test_preflight_check_detects_missing_dependency(self, mock_run):
         def fake_check_returncode():
             raise CalledProcessError(cmd="fake", returncode=1)
@@ -21,8 +21,8 @@ class TestArchive:
         expected_description = "Unable to locate tar utility"
         assert excinfo.value.args[0] == expected_description
 
-    @mock.patch("perfect-noise.archive.chmod")
-    @mock.patch("perfect-noise.archive.run")
+    @mock.patch("perfect_noise.archive.chmod")
+    @mock.patch("perfect_noise.archive.run")
     def test_create_archive_invokes_tar(self, mock_run, mock_chmod):
         source_dir = "/fake/path"
         source_file = "source"
@@ -35,7 +35,7 @@ class TestArchive:
             ["tar", "czf", dest_path, "--directory", source_dir, source_file]
         )
 
-    @mock.patch("perfect-noise.archive.run")
+    @mock.patch("perfect_noise.archive.run")
     def test_extract_archive_invokes_tar(self, mock_run):
         source_path = "/fake/path/source"
         source = Path(source_path)

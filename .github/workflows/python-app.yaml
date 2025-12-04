@@ -28,7 +28,7 @@ jobs:
         pip install -e .
     - name: Test with pytest
       run: |
-        pytest --cov=perfect-noise --cov-fail-under=50 -v -s
+        pytest --cov=perfect_noise --cov-fail-under=50 -v -s
     - name: Lint with black
       run: |
         # stop the build if there are Python syntax errors or undefined names

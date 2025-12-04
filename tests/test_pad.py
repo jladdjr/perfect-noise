@@ -6,8 +6,8 @@ from unittest import mock
 
 import pytest
 
-from perfect-noise import pad
-from perfect-noise.settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
+from perfect_noise import pad
+from perfect_noise.settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
 
 
 class TestCreateOneTimePad:
@@ -43,7 +43,7 @@ class TestCreateOneTimePad:
             )
             assert excinfo.value.args[0] == expected_description
 
-    @mock.patch("perfect-noise.pad.create_block_file")
+    @mock.patch("perfect_noise.pad.create_block_file")
     def test_create_one_time_pad_creates_correct_number_of_blocks(
         self, mock_create_block_file
     ):
@@ -75,10 +75,10 @@ class TestCreateBlockFile:
             )
             assert excinfo.value.args[0] == expected_description
 
-    @mock.patch("perfect-noise.pad.os")
-    @mock.patch("perfect-noise.pad.open")
-    @mock.patch("perfect-noise.pad.sha3_256")
-    @mock.patch("perfect-noise.pad.get_random_bytes")
+    @mock.patch("perfect_noise.pad.os")
+    @mock.patch("perfect_noise.pad.open")
+    @mock.patch("perfect_noise.pad.sha3_256")
+    @mock.patch("perfect_noise.pad.get_random_bytes")
     def test_create_block_file_creates_block_file_at_path(
         self, mock_get_random_bytes, mock_sha3_256, mock_open, mock_os
     ):
