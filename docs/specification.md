@@ -1,32 +1,3 @@
-## Pad specification
-
-Perfect Noise can create and maintain a One-time Pad for users.
-
-A Perfect Noise pad is a directory that includes:
-- a `metadata` file
-- a `blocks` folder containing a set of _block files_
-
-By convention, the name of a pad directory ends in `.pad`.
-
-The `metadata` file contains metadata for the pad and looks something like:
-
-```yaml
-- name: "Alice One-time pad"
-- description: "One-time pad for corresponding with Bob"
-- created: "2024-09-15"
-```
-
-The `blocks` folder contains a set of files containing
-[cryptographically secure random numbers](https://cryptography.io/en/latest/random-numbers/#random-number-generation).
-
-### Blocks
-
-Each block file has a [uuid](https://docs.python.org/3/library/uuid.html)-based filename,
-such as `9969a58f-35eb-492d-902b-50d41e78838f`.
-
-Each block file consists of [pseudo-random data](https://en.wikipedia.org/wiki//dev/random).
-Block files can be different sizes.
-
 ## Message Specification
 
 A Perfect Noise Message consists of:
