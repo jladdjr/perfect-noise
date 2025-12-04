@@ -1,0 +1,33 @@
+Refactor pad.py so that it becomes the first (of several) Python
+packages that will all live inside the perfect-noise repo.
+Use the nested structure described in this article:
+https://geekcafe.com/blog/2025/11/multi-project-python-development-the-complete-guide
+
+When configuring the package's metadata and build process,
+use Hatch as the build backend. Follow the general build instructions
+provided in https://packaging.python.org/en/latest/tutorials/packaging-projects/
+but stick with the following directory structure:
+
+perfect-noise       // repo
+  pad               // module
+    README.md
+    LICENSE
+    pyproject.toml
+    src
+      pad.py
+    tests
+      test_pad.py
+
+All existing tests for pad.py should be adapted to run correctly using
+the new structure.
+
+Create a file called cli.py with a `pad` function that serves as an
+entry point for invoking pad as a command line utility
+
+The pad project's packaging should list `pad` as an
+executable that should be created by pip. See
+https://packaging.python.org/en/latest/guides/creating-command-line-tools/
+
+A new set of tests should be added to exercise the pad CLI.
+
+The new `pad` cli should support the commands listed in the pad README.
