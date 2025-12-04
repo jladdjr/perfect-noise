@@ -4,10 +4,10 @@ from shutil import copy2
 
 import yaml
 
-from perfect-noise.archive import Archiver
-from perfect-noise.hazmat.hazmat import xor_decrypt
-from perfect-noise.pad import fetch_and_destroy_random_block
-from perfect-noise.utils.file_helpers import tmp_directory
+from perfect_noise.archive import Archiver
+from perfect_noise.hazmat.hazmat import xor_decrypt
+from perfect_noise.pad import fetch_and_destroy_random_block
+from perfect_noise.utils.file_helpers import tmp_directory
 
 
 class Decrypter:

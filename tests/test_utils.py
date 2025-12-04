@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from perfect-noise.utils.file_helpers import get_or_create_pad_directory, tmp_directory
+from perfect_noise.utils.file_helpers import get_or_create_pad_directory, tmp_directory
 
 
 class TestUtils:

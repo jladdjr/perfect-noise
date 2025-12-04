@@ -3,7 +3,7 @@ from unittest import mock
 
 import pytest
 
-from perfect-noise.encrypt import Encrypter
+from perfect_noise.encrypt import Encrypter
 
 
 class TestEncrypter:
@@ -40,7 +40,7 @@ class TestEncrypter:
         expected_description = "Could not find file at " + f"{fake_file_path}"
         assert excinfo.value.args[0] == expected_description
 
-    @mock.patch("perfect-noise.encrypt.Archiver")
+    @mock.patch("perfect_noise.encrypt.Archiver")
     def test_preflight_check_checks_pad_dir_and_archiver_pre_checks(
         self, mock_archiver
     ):
