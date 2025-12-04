@@ -2,7 +2,7 @@ from os import chmod
 from pathlib import Path
 from subprocess import run, CalledProcessError
 
-from perfect-noise.exceptions import MissingDependency
+from perfect_noise.exceptions import MissingDependency
 
 
 class Archiver:

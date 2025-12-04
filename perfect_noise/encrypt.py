@@ -1,7 +1,7 @@
 from pathlib import Path
 
-from perfect-noise.archive import Archiver
-from perfect-noise.utils.file_helpers import tmp_directory
+from perfect_noise.archive import Archiver
+from perfect_noise.utils.file_helpers import tmp_directory
 
 
 class Encrypter:
