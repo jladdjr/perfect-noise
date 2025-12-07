@@ -7,5 +7,8 @@ test_with_pdb:
 test:
 	uv run pytest --cov=perfect_pad --cov-fail-under=70
 
+coverage:
+	uv run coverage html
+
 lint:
 	uv run ruff format
