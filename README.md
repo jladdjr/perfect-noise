@@ -1,6 +1,6 @@
 # Perfect Noise
 
-[![Unit Tests](https://github.com/jladdjr/perfect-noise/actions/workflows/python-app.yaml/badge.svg)](https://github.com/jladdjr/perfect-noise/actions/workflows/python-app.yaml)
+[![Test Pad](https://github.com/jladdjr/perfect-noise/actions/workflows/test-pad.yaml/badge.svg)](https://github.com/jladdjr/perfect-noise/actions/workflows/test-pad.yaml)
 
 > [!NOTE]
 > Perfect Noise is still in development. This README describes the app's future behavior.
