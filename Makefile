@@ -1,3 +1,6 @@
+get_uv:
+	curl -LsSf https://astral.sh/uv/install.sh | sh
+
 venv:
 	uv venv
 

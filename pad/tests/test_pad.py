@@ -116,3 +116,37 @@ class TestFetchBlocks:
             res = pad.fetch_and_destroy_block(Path(tmp_dir), block_name)
             assert res == contents
             assert not (Path(tmp_dir) / block_name).exists()
+
+    @mock.patch("perfect_pad.pad.choice")
+    @mock.patch("perfect_pad.pad.os.listdir")
+    def test_get_random_block(self, mock_listdir, mock_choice):
+        pad_path = Path("/tmp/pads/foo.pad")
+
+        fake_block_names = ["foo", "bar", "biz"]
+        mock_listdir.return_value = fake_block_names
+        mock_choice.return_value = "bar"
+
+        res = pad._get_random_block(pad_path)
+        mock_listdir.assert_called_once_with(pad_path)
+        mock_choice.assert_called_once_with(fake_block_names)
+        assert res == "bar"
+
+    @mock.patch("perfect_pad.pad.os.listdir")
+    def test_get_random_block_when_pad_is_empty(self, mock_listdir):
+        mock_listdir.return_value = []
+
+        pad_path = Path("/tmp/pads/foo.pad")
+        with pytest.raises(pad.EmptyOneTimePadException):
+            pad._get_random_block(pad_path)
+
+    @mock.patch("perfect_pad.pad.fetch_and_destroy_block")
+    @mock.patch("perfect_pad.pad._get_random_block")
+    def test_fetch_and_destroy_random_block(
+        self, mock_get_random_block, mock_fetch_and_destroy_block
+    ):
+        pad_path = Path("/tmp/pads/foo.pad")
+        mock_get_random_block.return_value = "foo"
+        res = pad.fetch_and_destroy_random_block(pad_path)
+
+        mock_get_random_block.assert_called_once_with(pad_path)
+        mock_fetch_and_destroy_block.assert_called_once_with(pad_path, "foo")
