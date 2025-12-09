@@ -16,6 +16,9 @@ keywords = ["one-time pad", "OTP", "cryptography", "encryption", "random", "pad"
 license = "GPL-3.0-only"
 license-files = ["LICENSE"]
 
+[project.scripts]
+pad = "perfect_pad.cli:main"
+
 [project.urls]
 Homepage = "https://github.com/jladdjr/perfect-noise"
 Repository = "https://github.com/jladdjr/perfect-noise"

@@ -4,7 +4,7 @@
 
 ## Overview
 
-Perfect Pads are [one time pads](https://en.wikipedia.org/wiki/One-time_pad)
+Perfect Pads are [one-time pads](https://en.wikipedia.org/wiki/One-time_pad)
 that follow a simple, practical structure:
 
 ```

@@ -6,7 +6,7 @@
 > Perfect Noise is still in development. This README describes the app's future behavior.
 
 Perfect Noise lets you send and receive messages encrypted using a
-[One-time Pad](pad/README.md).
+[one-time pad](pad/README.md).
 
 ## Installation
 
