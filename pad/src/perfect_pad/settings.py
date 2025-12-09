@@ -2,5 +2,8 @@
 # set a maximum block size measured in bytes
 MAX_BLOCK_SIZE = 2**20
 
-# By default, blocks will be `STD_BLOCK_SIZE` bytes long
-STD_BLOCK_SIZE = 2**12
+# Pad size is rough 68Mb
+DEFAULT_PAD_SIZE = 2**26
+
+# Block size is roughly 1Kb
+DEFAULT_BLOCK_SIZE = 2**10
