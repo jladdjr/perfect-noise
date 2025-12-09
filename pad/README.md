@@ -1,8 +1,10 @@
 # Perfect Pad
 
+[![Test Pad](https://github.com/jladdjr/perfect-noise/actions/workflows/test-pad.yaml/badge.svg)](https://github.com/jladdjr/perfect-noise/actions/workflows/test-pad.yaml)
+
 ## Overview
 
-Perfect Pads are [one time pads](https://en.wikipedia.org/wiki/One-time_pad)
+Perfect Pads are [one-time pads](https://en.wikipedia.org/wiki/One-time_pad)
 that follow a simple, practical structure:
 
 ```

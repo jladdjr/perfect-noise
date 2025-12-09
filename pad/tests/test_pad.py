@@ -7,7 +7,7 @@ from unittest import mock
 import pytest
 
 from perfect_pad import pad
-from perfect_pad.settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
+from perfect_pad.settings import MAX_BLOCK_SIZE
 
 
 class TestCreateBlockFile:
@@ -100,7 +100,7 @@ class TestCreateOneTimePad:
     def test_create_one_time_pad_fails_if_path_parent_dir_does_not_exist(self):
         path_missing_parent_folder = Path("/not-a-real-folder/my.pad")
         with pytest.raises(ValueError) as excinfo:
-            pad.create_one_time_pad(path_missing_parent_folder, 100)
+            pad.create_one_time_pad(path_missing_parent_folder, 100, 50)
         expected_description = (
             "Cannot create one-time pad at "
             + "/not-a-real-folder/my.pad; "
@@ -108,10 +108,43 @@ class TestCreateOneTimePad:
         )
         assert excinfo.value.args[0] == expected_description
 
+    def test_create_one_time_pad_fails_when_block_size_smaller_than_pad_size(self):
+        with TemporaryDirectory() as tmp_dir:
+            with pytest.raises(ValueError) as excinfo:
+                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"), 100, 10000)
+            expected_description = (
+                f"Block size cannot be greater than pad size. "
+                + "Received 100 for pad size, "
+                + "10000 for block size."
+            )
+            assert excinfo.value.args[0] == expected_description
+
+    @pytest.mark.parametrize("block_size", [-10, 0])
+    def test_create_one_time_pad_fails_for_invalid_block_size(self, block_size):
+        with TemporaryDirectory() as tmp_dir:
+            with pytest.raises(ValueError) as excinfo:
+                pad.create_one_time_pad(
+                    Path(tmp_dir).joinpath("foo.pad"), 100, block_size
+                )
+            expected_description = (
+                f"Block size must be greater than zero. Received {block_size}"
+            )
+            assert excinfo.value.args[0] == expected_description
+
+    @pytest.mark.parametrize("pad_size", [-10, 0])
+    def test_create_one_time_pad_fails_for_invalid_pad_size(self, pad_size):
+        with TemporaryDirectory() as tmp_dir:
+            with pytest.raises(ValueError) as excinfo:
+                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"), pad_size, 50)
+            expected_description = (
+                f"Pad size must be greater than zero. Received {pad_size}"
+            )
+            assert excinfo.value.args[0] == expected_description
+
     def test_create_one_time_pad_fails_if_path_already_exists(self):
         with TemporaryDirectory() as tmp_dir:
             with pytest.raises(ValueError) as excinfo:
-                pad.create_one_time_pad(Path(tmp_dir), 100)
+                pad.create_one_time_pad(Path(tmp_dir), 100, 50)
             expected_description = (
                 "Cannot create one-time pad at "
                 + f"{tmp_dir}; file or directory "
@@ -121,7 +154,7 @@ class TestCreateOneTimePad:
 
         with NamedTemporaryFile() as tmp_file:
             with pytest.raises(ValueError) as excinfo:
-                pad.create_one_time_pad(Path(tmp_file.name), 100)
+                pad.create_one_time_pad(Path(tmp_file.name), 100, 50)
             expected_description = (
                 "Cannot create one-time pad at "
                 + f"{tmp_file.name}; file or directory "
@@ -129,17 +162,19 @@ class TestCreateOneTimePad:
             )
             assert excinfo.value.args[0] == expected_description
 
+    @pytest.mark.parametrize(
+        "pad_size,block_size", [(10000000, 500), (2000, 500), (500, 500)]
+    )
     @mock.patch("perfect_pad.pad.create_block_file")
     def test_create_one_time_pad_creates_correct_number_of_blocks(
-        self, mock_create_block_file
+        self, mock_create_block_file, pad_size, block_size
     ):
-        pad_size = 10**6
         with TemporaryDirectory() as tmp_dir:
             chmod(tmp_dir, 0o700)
             new_dir = Path(tmp_dir).joinpath("foo.pad")
-            pad.create_one_time_pad(new_dir, pad_size)
+            pad.create_one_time_pad(new_dir, pad_size, block_size)
             calls = mock_create_block_file.mock_calls
-            assert len(calls) == ceil(pad_size / STD_BLOCK_SIZE)
+            assert len(calls) == ceil(pad_size / block_size)
             for i, call in enumerate(calls):
                 block_name = str(i).zfill(16)
-                assert call.args == (new_dir.joinpath(block_name), STD_BLOCK_SIZE)
+                assert call.args == (new_dir.joinpath(block_name), block_size)
