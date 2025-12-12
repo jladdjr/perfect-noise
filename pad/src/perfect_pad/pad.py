@@ -5,14 +5,14 @@ from pathlib import Path
 from secrets import choice
 
 from .hazmat.hazmat import get_random_bytes
-from .settings import MAX_BLOCK_SIZE, STD_BLOCK_SIZE
+from .settings import MAX_BLOCK_SIZE
 
 
 class EmptyOneTimePadException(Exception):
     pass
 
 
-def create_one_time_pad(path: Path, size: int):
+def create_one_time_pad(path: Path, size: int, block_size: int):
     """Creates a pad at `path`.
 
     Note that `path`'s parent folder should already exist.
@@ -20,6 +20,7 @@ def create_one_time_pad(path: Path, size: int):
     Arguments:
     path -- path to a new one-time pad
     size -- desired size of pad; resulting pad will be at least this large
+    block_size -- desired size of block
     """
     if not path.parent.exists():
         error_msg = (
@@ -33,14 +34,23 @@ def create_one_time_pad(path: Path, size: int):
             + "file or directory already present at location"
         )
         raise ValueError(error_msg)
+    if size < 1:
+        raise ValueError(f"Pad size must be greater than zero. Received {size}")
+    if block_size < 1:
+        raise ValueError(f"Block size must be greater than zero. Received {block_size}")
+    if block_size > size:
+        error = ( "Block size cannot be greater than pad size. "
+                  + f"Received {size} for pad size, "
+                  + f"{block_size} for block size." )
+        raise ValueError(error)
 
     # create new directory representing the pad itself
     os.mkdir(path, 0o700)
 
-    num_blocks = ceil(size / STD_BLOCK_SIZE)
+    num_blocks = ceil(size / block_size)
 
     for _ in range(num_blocks):
-        create_block_file(path, STD_BLOCK_SIZE)
+        create_block_file(path, block_size)
 
 
 def create_block_file(path: Path, size: int):
