@@ -25,8 +25,7 @@ class TestCreateOneTimePad:
     def test_create_one_time_pad_fails_when_block_size_smaller_than_pad_size(self):
         with TemporaryDirectory() as tmp_dir:
             with pytest.raises(ValueError) as excinfo:
-                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"),
-                                        100, 10000)
+                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"), 100, 10000)
             expected_description = (
                 f"Block size cannot be greater than pad size. "
                 + "Received 100 for pad size, "
@@ -38,8 +37,9 @@ class TestCreateOneTimePad:
     def test_create_one_time_pad_fails_for_invalid_block_size(self, block_size):
         with TemporaryDirectory() as tmp_dir:
             with pytest.raises(ValueError) as excinfo:
-                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"),
-                                        100, block_size)
+                pad.create_one_time_pad(
+                    Path(tmp_dir).joinpath("foo.pad"), 100, block_size
+                )
             expected_description = (
                 f"Block size must be greater than zero. Received {block_size}"
             )
@@ -49,8 +49,7 @@ class TestCreateOneTimePad:
     def test_create_one_time_pad_fails_for_invalid_pad_size(self, pad_size):
         with TemporaryDirectory() as tmp_dir:
             with pytest.raises(ValueError) as excinfo:
-                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"),
-                                        pad_size, 50)
+                pad.create_one_time_pad(Path(tmp_dir).joinpath("foo.pad"), pad_size, 50)
             expected_description = (
                 f"Pad size must be greater than zero. Received {pad_size}"
             )
@@ -77,14 +76,12 @@ class TestCreateOneTimePad:
             )
             assert excinfo.value.args[0] == expected_description
 
-    @pytest.mark.parametrize("pad_size,block_size", [(10000000, 500),
-                                                     (2000,500),
-                                                     (500,500)])
+    @pytest.mark.parametrize(
+        "pad_size,block_size", [(10000000, 500), (2000, 500), (500, 500)]
+    )
     @mock.patch("perfect_pad.pad.create_block_file")
     def test_create_one_time_pad_creates_correct_number_of_blocks(
-            self, mock_create_block_file,
-            pad_size,
-            block_size
+        self, mock_create_block_file, pad_size, block_size
     ):
         with TemporaryDirectory() as tmp_dir:
             chmod(tmp_dir, 0o700)

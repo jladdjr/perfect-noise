@@ -5,6 +5,7 @@ from perfect_pad import cli
 
 from unittest.mock import patch
 
+
 class TestCreate:
     """Verify foo"""
 

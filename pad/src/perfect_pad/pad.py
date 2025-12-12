@@ -39,9 +39,11 @@ def create_one_time_pad(path: Path, size: int, block_size: int):
     if block_size < 1:
         raise ValueError(f"Block size must be greater than zero. Received {block_size}")
     if block_size > size:
-        error = ( "Block size cannot be greater than pad size. "
-                  + f"Received {size} for pad size, "
-                  + f"{block_size} for block size." )
+        error = (
+            "Block size cannot be greater than pad size. "
+            + f"Received {size} for pad size, "
+            + f"{block_size} for block size."
+        )
         raise ValueError(error)
 
     # create new directory representing the pad itself
