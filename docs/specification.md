@@ -1,6 +1,7 @@
 ## Message Specification
 
 A Perfect Noise Message consists of:
+
 - a `blocks` file
 - a `message` file
 

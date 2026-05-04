@@ -1,8 +1,9 @@
 # Core concepts and caveats
 
-> [!CAUTION]
-> One-time Pads are only as secure as the quality and secrecy of the pad.
-> Please see Perfect Noise's [disclaimer](./DISCLAIMER.md).
+!!! Danger
+
+    One-time Pads are only as secure as the quality and secrecy of the pad.
+    Please see Perfect Noise's [disclaimer](./DISCLAIMER.md).
 
 The One-time pad is a powerful form of encryption -- offering the possibility of
 [perfect secrecy](https://en.wikipedia.org/wiki/One-time_pad#Perfect_secrecy).
@@ -33,6 +34,7 @@ Put differently, the security of a message encrypted using a one-time pad
 is only as strong as the degree to which the one-time pad itself is protected.
 
 Perfect Noise attempts to preserve the secrecy of the one-time pad by:
+
 - insisting that the Pad's operating system access is set to user-only
 - immediately deleting any portion of the pad after it has been used to encrypt or decrypt a message
 - encrypting the pad at rest using a user password
