@@ -1,0 +1,13 @@
+site_name: Perfect Noise
+nav:
+  - Home: index.md
+  - Core Concepts: concepts.md
+  - Specification: specification.md
+  - Perfect Pad: pad.md
+  - Disclaimer: disclaimer.md
+theme:
+  name: material
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
